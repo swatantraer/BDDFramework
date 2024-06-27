@@ -2,8 +2,8 @@ package stepDefinitions;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import objectRepository.Object_HomePage;
 import pages.HomePage;
+import repository.ObjectHomePage;
 import utils.BasePage;
 
 public class StepDefinition extends BasePage {
@@ -21,17 +21,18 @@ public class StepDefinition extends BasePage {
 
 	@Then("I verify the Add User link displayed")
 	public void iVerifyTheAddUserLink() {
-		verifyElementPresent(Object_HomePage.addUser);
+		verifyElementPresent(ObjectHomePage.addUser);
 	}
 
-	@When("I add new user with name {string}")
-	public void iAddNewUserWithName(String userName) {
-		homePage.addNewUser(userName);
+	@When("I add new user with name {string} fName {string} companyName {string} role {string} email {string} phone {string}")
+	public void i_add_new_user_with_name_f_name_company_name_role_email_phone(String userName, String fName,
+			String comName, String role, String email, String phone) {
+		homePage.addNewUser(userName, fName, comName, role, email, phone);
 	}
 
 	@Then("I verify the new user {string} is added")
 	public void iVerifyTheNewUserAdded(String userName) {
-		verifyElementPresent(Object_HomePage.rowWithUserNameAndRole(userName, "Customer"));
+		verifyElementPresent(ObjectHomePage.rowWithUserNameAndRole(userName, "Customer"));
 	}
 
 	@When("I delete user by name {string}")
@@ -41,7 +42,7 @@ public class StepDefinition extends BasePage {
 
 	@Then("I verify the user {string} is deleted")
 	public void iVerifyUserIsDeleted(String userName) {
-		verifyElementNotPresent(Object_HomePage.rowWithUserNameAndRole(userName, "Customer"));
+		verifyElementNotPresent(ObjectHomePage.rowWithUserNameAndRole(userName, "Customer"));
 	}
 
 }

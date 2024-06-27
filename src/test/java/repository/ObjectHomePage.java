@@ -1,8 +1,8 @@
-package objectRepository;
+package repository;
 
 import org.openqa.selenium.By;
 
-public class Object_HomePage {
+public class ObjectHomePage {
 	public static By addUser = By.xpath("//button[@type='add']");
 	public static By searchInput = By.xpath("//input[@type='text']");
 	public static By search = By.xpath("//input[@type='text']");

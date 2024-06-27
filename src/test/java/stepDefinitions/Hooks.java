@@ -1,7 +1,9 @@
 package stepDefinitions;
 
 import java.awt.AWTException;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.OutputType;
@@ -24,6 +26,7 @@ public class Hooks {
 		Webdriver = new ChromeDriver();
 		Webdriver.manage().window().maximize();
 		Webdriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		Webdriver.navigate().to(readConfig("url"));
 	}
 
 	@After()
@@ -45,6 +48,17 @@ public class Hooks {
 	public void takescreen(Scenario scenario) throws AWTException, IOException {
 		final byte[] screenshot = ((TakesScreenshot) Webdriver).getScreenshotAs(OutputType.BYTES);
 		scenario.attach(screenshot, "image/png", scenario.getName());
+	}
+
+	public String readConfig(String key) {
+		Properties prop = new Properties();
+		String fileName = "config.properties";
+		try (FileInputStream fis = new FileInputStream(fileName)) {
+		    prop.load(fis);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return prop.getProperty(key);
 	}
 
 }
